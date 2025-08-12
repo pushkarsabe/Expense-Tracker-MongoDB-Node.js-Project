@@ -31,8 +31,9 @@ async function submitData(event) {
         password: password
     }
 
-    try {   
-        const response = await axios.post(`http://localhost:3000/user/login`, obj);
+    try {
+        // const response = await axios.post(`http://localhost:3000/user/login`, obj);
+        const response = await axios.post(`/api/user/login`, obj);
         console.log('response data = ' + JSON.stringify(response.data));
         //this will give the data inside the array
         const dataUser = response.data.userDetails;

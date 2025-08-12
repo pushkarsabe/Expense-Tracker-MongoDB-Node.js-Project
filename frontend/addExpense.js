@@ -4,7 +4,13 @@ document.getElementById('buyPremiumRazor').onclick = async (e) => {
     const token = localStorage.getItem('token');
     console.log('token:' + token);
     try {
-        const response = await axios.get(`http://localhost:3000/purchase/premiummembership`, {
+        // const response = await axios.get(`http://localhost:3000/purchase/premiummembership`, {
+        //     headers: {
+        //         "Authorization": token
+        //     }
+        // });
+
+        const response = await axios.get(`/api/purchase/premiummembership`, {
             headers: {
                 "Authorization": token
             }
@@ -18,7 +24,7 @@ document.getElementById('buyPremiumRazor').onclick = async (e) => {
 
             //to handle the success payement
             'handler': async function (response) {
-                await axios.post(`http://localhost:3000/purchase/updatetransactionstatus`, {
+                await axios.post(`/api/purchase/updatetransactionstatus`, {
                     order_id: options.order_id,
                     payment_id: response.razorpay_payment_id,
                 },
@@ -100,7 +106,7 @@ async function showLeaderBoards(val) {
 
     try {
 
-        const response = await axios.get(`http://localhost:3000/premium/showLeaderBoard`, {
+        const response = await axios.get(`/api/premium/showLeaderBoard`, {
             headers: {
                 "Authorization": token
             }
@@ -222,7 +228,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         //if the user is preminum then display the chart data
         try {
-            const response = await axios.get('http://localhost:3000/expense/get-expense',
+            const response = await axios.get(`/api/expense/get-expense`,
                 {
                     headers:
                         { "Authorization": token }
@@ -264,7 +270,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('token being sent = ', token);
 
         //get files for download
-        const res = await axios.get('http://localhost:3000/expense/getFiles',
+        const res = await axios.get(`/api/expense/getFiles`,
             {
                 headers:
                     { "Authorization": token }
@@ -357,7 +363,7 @@ async function fetchExpenseDataPagination(selectedRowOption, currentPage) {
 
     const token = localStorage.getItem('token');
     try {
-        const response = await axios.get(`http://localhost:3000/expense/get-expense?page=${currentPage}&numberOfRows=${selectedRowOption}`, {
+        const response = await axios.get(`/api/expense/get-expense?page=${currentPage}&numberOfRows=${selectedRowOption}`, {
             headers: {
                 "Authorization": token
             }
@@ -429,7 +435,7 @@ async function getExpenses(page) {
     console.log('inside getExpenses');
     console.log('selectedRowOption = ', selectedRowOption, 'page = ', page);
     const token = localStorage.getItem('token');
-    const response = await axios.get(`http://localhost:3000/expense/get-expense?page=${page}
+    const response = await axios.get(`/api/expense/get-expense?page=${page}
     &numberOfRows=${selectedRowOption}`, {
         headers: {
             "Authorization": token
@@ -448,7 +454,7 @@ async function downloadEpense() {
     console.log('inside download function');
     try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:3000/expense/download', { headers: { "Authorization": token } })
+        const res = await axios.get(`/api/expense/download`, { headers: { "Authorization": token } })
         // console.log('res = ', JSON.stringify(res));
 
         var a = document.createElement("a");
@@ -491,7 +497,7 @@ async function submitData(event) {
     try {
         const token = localStorage.getItem('token');
         console.log('token:', token);
-        const response = await axios.post(`http://localhost:3000/expense/add-expense`, obj, {
+        const response = await axios.post(`/api/expense/add-expense`, obj, {
             headers: {
                 "Authorization": token
             }
@@ -516,7 +522,7 @@ async function submitData(event) {
 
 
         // Re-fetch updated data and update the chart
-        const res = await axios.get('http://localhost:3000/expense/get-expense', {
+        const res = await axios.get('/api/expense/get-expense', {
             headers: { "Authorization": token }
         });
         console.log('res:' + res);
@@ -550,12 +556,12 @@ async function deleteExpense(id) {
     const userInput = confirm('Are you sure you want to delete this expense?');
     if (userInput) {
         try {
-            const response = await axios.delete(`http://localhost:3000/expense/delete-expense/${id}`, { headers: { "Authorization": token } });
+            const response = await axios.delete(`/api/expense/delete-expense/${id}`, { headers: { "Authorization": token } });
             console.log('response:', response);
             displayMessage('Data deleted successfully', 'success');
 
             // Re-fetch updated data and update the chart
-            const res = await axios.get('http://localhost:3000/expense/get-expense', {
+            const res = await axios.get(`/api/expense/get-expense`, {
                 headers: { "Authorization": token }
             });
 
@@ -603,7 +609,7 @@ async function updateBudget() {
             return;
         }
 
-        const response = await axios.put(`http://localhost:3000/expense/updateMonthlyBudget`,
+        const response = await axios.put(`/api/expense/updateMonthlyBudget`,
             { monthlyBudget: Number(budget) },
             {
                 headers: { "Authorization": token }
@@ -631,13 +637,13 @@ async function refreshBudgetBar() {
     const token = localStorage.getItem('token');
 
     if (!token) {
-        console.error('No token found. User is not authenticated.');    
+        console.error('No token found. User is not authenticated.');
         displayMessage('Authentication failed. Please log in again.', 'error');
         return;
     }
 
     try {
-        const response1 = await axios.get('http://localhost:3000/user/userData', {
+        const response1 = await axios.get(`/api/user/userData`, {
             headers: { "Authorization": token }
         });
 

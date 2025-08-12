@@ -30,17 +30,5 @@ app.use('/premium', premiumRoute);
 app.use('/password', forgotpasswordRoute);
 
 
-const sequel = async () => {
-  try {
-    await connectDB(  );
-
-    app.listen(process.env.PORT || 3000, () => {
-      console.log(`Server running on port ${process.env.PORT || 3000}`);
-    });
-
-  } catch (err) {
-    console.log('Error starting server:', err);
-  }
-}
-sequel();
+module.exports = app;
 

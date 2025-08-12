@@ -29,8 +29,8 @@ async function submitData(event) {
         password: password
     }
     try {
-        const response = await axios.post('http://localhost:3000/user/signup', obj);
-
+        // const response = await axios.post('http://localhost:3000/user/signup', obj);
+        const response = await axios.post('/api/user/signup', obj);
         console.log('data added');
         console.log('response data = ' + JSON.stringify(response));
         console.log('response name = ' + response.data.newUserDetails.name);

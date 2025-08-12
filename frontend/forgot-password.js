@@ -42,7 +42,7 @@ async function submitData(event) {
     }
     try {
         // and null is used as the second parameter since you are making a POST request without a request body.
-        const response = await axios.post(`http://localhost:3000/password/forgotpassword/`, obj, {
+        const response = await axios.post(`/api/password/forgotpassword/`, obj, {
             headers: {
                 "Authorization": token
             }
