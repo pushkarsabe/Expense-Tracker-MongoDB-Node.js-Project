@@ -10,7 +10,6 @@ const jwt = require('jsonwebtoken');
 //to post the records to database
 exports.postAddUser = async (req, res, next) => {
     try {
-        //post always uses body
         const { name, email, password } = req.body;
         console.log('name = ', name);
         console.log('email = ', email);
@@ -25,13 +24,12 @@ exports.postAddUser = async (req, res, next) => {
             return res.status(401).json({ message: 'Email already exists' });
         }
 
-        //number of hashing or strengthen
         const saltRounds = 10;
-
+        // Await the hashing process
         const hash = await bcrypt.hash(password, saltRounds);
         console.log('hash = ', hash);
 
-        const newUser = await User({
+        const newUser = new User({ // Corrected this line
             name,
             email,
             password: hash,
@@ -48,8 +46,7 @@ exports.postAddUser = async (req, res, next) => {
         console.error('Error during signup:', err);
         res.status(500).json({ message: 'Something went wrong' });
     }
-
-}//postAddUser
+};
 
 //to get the records from db
 exports.postLoginUser = async (req, res, next) => {
