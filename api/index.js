@@ -19,15 +19,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //parse application/json
 app.use(bodyParser.json());
 
-app.use('/expense', expenseRoute);
+app.use('/api/expense', expenseRoute);
 
-app.use('/user', userRoute);
+app.use('/api/user', userRoute);
 
-app.use('/purchase', purchaseRoute);
+app.use('/api/purchase', purchaseRoute);
 
-app.use('/premium', premiumRoute);
+app.use('/api/premium', premiumRoute);
 
-app.use('/password', forgotpasswordRoute);
+app.use('/api/password', forgotpasswordRoute);
 
 
 module.exports = app;
