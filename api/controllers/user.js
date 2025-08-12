@@ -96,7 +96,7 @@ exports.postLoginUser = async (req, res, next) => {
 }
 
 function generateAccessToken(id, name, ispremiumuser) {
-    return jwt.sign({ userid: id, name: name, ispremiumuser }, 'secretkey');
+    return jwt.sign({ userid: id, name: name, ispremiumuser }, process.env.JWT_SECRET, { expiresIn: '1h' });//1 hour expiry time
 }
 
 
