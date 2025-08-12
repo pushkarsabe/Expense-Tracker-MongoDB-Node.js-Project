@@ -16,8 +16,16 @@
       "dest": "api/index.js"
     },
     {
-      "src": "/(.*)",
+      "src": "/(.*\\.(css|js|html|png|jpg|jpeg|gif|svg))$",
       "dest": "frontend/$1"
+    },
+    {
+      "src": "/(login|signup|addExpense|forgot-password)",
+      "dest": "frontend/$1.html"
+    },
+    {
+      "src": "/",
+      "dest": "frontend/login.html"
     }
   ]
 }
